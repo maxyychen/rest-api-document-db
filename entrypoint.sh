@@ -1,2 +1,3 @@
 #!/bin/bash
-yarn && node server.js
+node server.js
+# /bin/sh
