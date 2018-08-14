@@ -1,7 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
-const url = process.env.MONGODB_URL || 'mongodb://192.168.3.111:27017';
+const url = process.env.MONGODB_URL || 'mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017';
 
 
 class MongoAdapter {

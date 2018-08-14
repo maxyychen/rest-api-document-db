@@ -3,7 +3,7 @@ const restify = require("restify");
 const handler = require('./handler');
 
 const server_name = process.env.SERVER_NAME || "rest-api-document-db";
-const server_port = process.env.PORT || 8510;
+const server_port = process.env.PORT || 8139;
 
 
 
