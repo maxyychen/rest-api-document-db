@@ -4,8 +4,8 @@ services:
   mongo-api:
     image: mapi:latest
     ports:
-      - 8130:8130
+      - 8230:8230
     restart: always
     environment:
-      - MONGODB_URL="mongodb://192.168.3.111:27017"
-      - PORT=8130
+      - MONGODB_URL="mongodb://10.44.0.14:27017,10.47.0.8:27017,10.36.0.14:27017/test"
+      - PORT=8230

@@ -11,10 +11,12 @@ class MongoAdapter {
         MongoClient.connect(url, {useNewUrlParser:true}, (err, client)=>{
             if(err){
                 console.log(err);
+                throw err;
+            }else{
+                console.log("Connected successfully to server");
+                this.client = client;
+                this.ready = true;
             }
-            console.log("Connected successfully to server");
-            this.client = client;
-            this.ready = true;
         });
     }
 
