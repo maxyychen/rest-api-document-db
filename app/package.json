@@ -1,0 +1,21 @@
+{
+  "name": "rest-api-document-db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest --watchAll"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "jest": "^23.3.0",
+    "mongodb": "^3.1.1",
+    "restify": "^7.2.1",
+    "showdown": "^1.8.6",
+    "tingodb": "^0.6.1"
+  }
+}

@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  mongo-api:
+    image: mapi:latest
+    ports:
+      - 8130:8130
+    restart: always
+    environment:
+      - MONGODB_URL="mongodb://192.168.3.111:27017"
+      - PORT=8130

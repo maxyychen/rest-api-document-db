@@ -1,0 +1,47 @@
+Arguments: 
+  /home/maxc/.nvm/versions/node/v10.6.0/bin/node /home/maxc/.nvm/versions/node/v10.6.0/bin/yarn add restfy
+
+PATH: 
+  /home/maxc/.gvm/pkgsets/go1.6.2/global/bin:/home/maxc/.gvm/gos/go1.6.2/bin:/home/maxc/.gvm/pkgsets/go1.6.2/global/overlay/bin:/home/maxc/.gvm/bin:/home/maxc/.gvm/bin:/home/maxc/jdk1.8.0_91/bin:/home/maxc/trade/bin:/home/maxc/.pyenv/shims:/home/maxc/.pyenv/bin:/usr/local/bin/:/home/maxc/.nvm/versions/node/v10.6.0/bin:/home/maxc/trade/cmd/bin:/home/maxc/trade/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/maxc/gowork/bin:/usr/local/cuda-7.5/bin:/home/maxc/trade/bin/stat
+
+Yarn version: 
+  1.7.0
+
+Node version: 
+  10.6.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/restfy: Not found
+      at Request.params.callback [as _callback] (/home/maxc/.nvm/versions/node/v10.6.0/lib/node_modules/yarn/lib/cli.js:65656:18)
+      at Request.self.callback (/home/maxc/.nvm/versions/node/v10.6.0/lib/node_modules/yarn/lib/cli.js:134675:22)
+      at Request.emit (events.js:182:13)
+      at Request.<anonymous> (/home/maxc/.nvm/versions/node/v10.6.0/lib/node_modules/yarn/lib/cli.js:135658:10)
+      at Request.emit (events.js:182:13)
+      at IncomingMessage.<anonymous> (/home/maxc/.nvm/versions/node/v10.6.0/lib/node_modules/yarn/lib/cli.js:135578:12)
+      at Object.onceWrapper (events.js:273:13)
+      at IncomingMessage.emit (events.js:187:15)
+      at endReadableNT (_stream_readable.js:1081:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)
+
+npm manifest: 
+  {
+    "name": "rest-api-document-db",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
