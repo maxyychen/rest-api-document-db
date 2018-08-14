@@ -5,8 +5,8 @@ MAINTAINER Max Chen <maxyychen@gmail.com>
 ENV APP_DIR /app
 ENV HOST 0.0.0.0
 ENV SERVER_NAME mapi
-ENV PORT 8130
-ENV MONGODB_URL "mongodb://192.168.3.111:27017"
+ENV PORT 8139
+ENV MONGODB_URL "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017"
 
 # install require package 
 RUN apk add --no-cache bash nodejs nodejs-npm \  

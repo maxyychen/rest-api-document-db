@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mapi
+spec:
+  replicas: 3 
+  template:
+    metadata:
+      labels:
+        app: mapi
+    spec:
+      containers:
+      - name: mapi
+        image: registry.kfsyscc.org/mapi:latest
+        ports:
+        - containerPort: 8139
+        env:
+        - name: PORT 
+          value: "8139"
+        - name: MONGODB_URL 
+          value: "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017"
+      imagePullSecrets:
+      - name: regcred
