@@ -9,7 +9,9 @@ class MongoAdapter {
         this.ready = false;
         this.dbs = {};
         MongoClient.connect(url, {useNewUrlParser:true}, (err, client)=>{
-            assert.equal(null, err);
+            if(err){
+                console.log(err);
+            }
             console.log("Connected successfully to server");
             this.client = client;
             this.ready = true;
