@@ -25,9 +25,6 @@ class MongoAdapter {
         return this.dbs[db_name];
     }
 
-    close() {
-        this.client.close();
-    }
 
     doPost(db_name, col_name, data) {
         return new Promise((resolve, reject) => {
