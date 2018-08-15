@@ -6,7 +6,11 @@ const database = process.env.MONGODB_DATABASE || "test";
 class MongooseAdapter {
     constructor() {
         this.models = {};
-        mongoose.connect(`${url}/${database}`, {
+        let connstr = `${url}/${database}`
+        if(process.env.MONGODB_REPLICASET){
+            connstr = `${connstr}?replicaSet=${process.env.MONGODB_REPLICASET}`
+        }
+        mongoose.connect(connstr, {
             useNewUrlParser: true,
             socketTimeoutMS: 0,
             connectTimeoutMS: 0
