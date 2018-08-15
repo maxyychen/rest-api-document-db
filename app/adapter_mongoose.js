@@ -6,15 +6,22 @@ const database = process.env.MONGODB_DATABASE || "test";
 class MongooseAdapter {
     constructor() {
         this.models = {};
-        let connstr = `${url}/${database}`
-        if(process.env.MONGODB_REPLICASET){
-            connstr = `${connstr}?replicaSet=${process.env.MONGODB_REPLICASET}`
-        }
-        mongoose.connect(connstr, {
+        let connstr = `${url}/${database}`;
+        let opts = {
             useNewUrlParser: true,
-            socketTimeoutMS: 0,
-            connectTimeoutMS: 0
-        });
+            socketTimeoutMS: 30000,
+            connectTimeoutMS: 30000,
+            keepAlive: 120,
+            poolSize: 100,
+            reconnectTries: Number.MAX_VALUE,
+            reconnectInterval: 500,
+            autoReconnect: true
+        };
+        if(process.env.MONGODB_REPLICASET){
+            connstr = `${connstr}?replicaSet=${process.env.MONGODB_REPLICASET}`;
+            opts['replicaSet'] = process.env.MONGODB_REPLICASET;
+        }
+        mongoose.connect(connstr, opts);
     }
 
     getModel(col_name) {
