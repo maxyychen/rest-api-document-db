@@ -2,13 +2,13 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
 const url = process.env.MONGODB_URL || 'mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017';
-
+const database = process.env.MONGODB_DATABASE || "test";
 
 class MongoAdapter {
     constructor() {
         this.ready = false;
         this.dbs = {};
-        MongoClient.connect(url, {useNewUrlParser:true}, (err, client)=>{
+        MongoClient.connect(`${url}/${database}`, {useNewUrlParser:true}, (err, client)=>{
             if(err){
                 console.log(err);
                 throw err;
@@ -20,17 +20,17 @@ class MongoAdapter {
         });
     }
 
-    getDb(db_name) {
-        if (!this.dbs[db_name]) {
-            this.dbs[db_name] = this.client.db(db_name);
+    getDb() {
+        if (!this.dbs[database]) {
+            this.dbs[database] = this.client.db(database);
         }
-        return this.dbs[db_name];
+        return this.dbs[database];
     }
 
 
-    doPost(db_name, col_name, data) {
+    doPost(col_name, data) {
         return new Promise((resolve, reject) => {
-            let collection = this.getDb(db_name).collection(col_name);
+            let collection = this.getDb().collection(col_name);
             collection.insert(data, {w: 1}, function (err, result) {
                 if (err) reject(err);
                 resolve(result);
@@ -38,9 +38,9 @@ class MongoAdapter {
         })
     }
 
-    doGet(db_name, col_name, id) {
+    doGet(col_name, id) {
         return new Promise((resolve, reject) => {
-            let collection = this.getDb(db_name).collection(col_name);
+            let collection = this.getDb().collection(col_name);
             collection.findOne({_id: id}, function (err, item) {
                 if (err) reject(err);
                 resolve(item);
@@ -48,9 +48,9 @@ class MongoAdapter {
         });
     }
 
-    doPut(db_name, col_name, id, data) {
+    doPut(col_name, id, data) {
         return new Promise((resolve, reject) => {
-            let collection = this.getDb(db_name).collection(col_name);
+            let collection = this.getDb().collection(col_name);
             collection.update({_id: id}, data, (err, item) => {
                 if (err) reject(err);
                 resolve(item);
@@ -59,9 +59,9 @@ class MongoAdapter {
     }
 
 
-    doDelete(db_name, col_name, id) {
+    doDelete(col_name, id) {
         return new Promise((resolve, reject) => {
-            let collection = this.getDb(db_name).collection(col_name);
+            let collection = this.getDb().collection(col_name);
             collection.remove({_id: id}, function (err, item) {
                 if (err) reject(err);
                 resolve(item);
@@ -69,9 +69,9 @@ class MongoAdapter {
         });
     }
 
-    doGetList(db_name, col_name, queryObj) {
+    doGetList(col_name, queryObj) {
         return new Promise((resolve, reject) => {
-            let collection = this.getDb(db_name).collection(col_name);
+            let collection = this.getDb().collection(col_name);
             collection.find(queryObj).toArray((err, items) => {
                 if (err) reject(err);
                 resolve(items);

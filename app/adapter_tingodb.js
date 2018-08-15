@@ -4,7 +4,7 @@ const Engine = require('tingodb')();
 const fs = require('fs');
 
 const tingo_data_path = process.env.TINGO_DATA_FOLDER || "./tingo_data";
-
+const database = process.env.TINGO_DATABASE || "test";
 const check_path = (path) =>{
   if (!fs.existsSync(path)) {
     fs.mkdirSync(path);
@@ -18,18 +18,18 @@ class TingoAdapter {
     this.dbs = {};
   }
 
-  getDb(db_name) {
-    if(!this.dbs[db_name]){
-      const dbpath = `${tingo_data_path}/${db_name}`;
+  getDb() {
+    if(!this.dbs[database]){
+      const dbpath = `${tingo_data_path}/${database}`;
       check_path(dbpath);
-      this.dbs[db_name] = new Engine.Db(dbpath, {});
+      this.dbs[database] = new Engine.Db(dbpath, {});
     }
-    return this.dbs[db_name];
+    return this.dbs[database];
   }
 
-  doPost(db_name, col_name, data){
+  doPost(col_name, data){
     return new Promise((resolve, reject)=>{
-      let collection = this.getDb(db_name).collection(col_name);
+      let collection = this.getDb().collection(col_name);
       collection.insert(data, {w:1}, function(err, result) {
         if(err) reject(err);  
         resolve(result);
@@ -37,9 +37,9 @@ class TingoAdapter {
     })
   }
 
-  doGet(db_name, col_name, id){
+  doGet(col_name, id){
     return new Promise((resolve, reject)=>{
-      let collection = this.getDb(db_name).collection(col_name);
+      let collection = this.getDb().collection(col_name);
       collection.findOne({_id: id}, function(err, item) {
         if(err) reject(err);  
         resolve(item);
@@ -47,9 +47,9 @@ class TingoAdapter {
     });
   }
 
-  doPut(db_name, col_name, id, data){
+  doPut(col_name, id, data){
     return new Promise((resolve, reject)=>{
-      let collection = this.getDb(db_name).collection(col_name);
+      let collection = this.getDb().collection(col_name);
       collection.update({_id: id}, data, (err,item)=>{
         if(err) reject(err);  
         resolve(item);
@@ -58,9 +58,9 @@ class TingoAdapter {
   }
 
 
-  doDelete(db_name, col_name, id){
+  doDelete(col_name, id){
     return new Promise((resolve, reject)=>{
-      let collection = this.getDb(db_name).collection(col_name);
+      let collection = this.getDb().collection(col_name);
       collection.remove({_id: id}, function(err, item) {
         if(err) reject(err);  
         resolve(item);
@@ -68,9 +68,9 @@ class TingoAdapter {
     });
   }
 
-  doGetList(db_name, col_name, queryObj){
+  doGetList(col_name, queryObj){
     return new Promise((resolve, reject)=>{
-      let collection = this.getDb(db_name).collection(col_name);
+      let collection = this.getDb().collection(col_name);
       collection.find(queryObj).toArray((err, items) => {
         if(err) reject(err);  
         resolve(items);

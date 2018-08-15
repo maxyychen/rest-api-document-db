@@ -1,5 +1,5 @@
 // const adapter = require('./adapter_tingodb');
-const adapter = require('./adapter_mongodb');
+const adapter = require('./adapter_mongoose');
 const showdown  = require('showdown');
 const converter = new showdown.Converter();
 const Promise = require("bluebird");
@@ -17,7 +17,7 @@ const pathPharser = (req) => {
 const doGet = async function (req, res, next) {
     console.log("GET-request recieved");
     const par = pathPharser(req);
-    const data = await adapter.doGet(par.db, par.collection, par.id);
+    const data = await adapter.doGet(par.collection, par.id);
     res.send(data);
     return next();
 };
@@ -25,7 +25,7 @@ const doGet = async function (req, res, next) {
 const doGetList = async function (req, res, next) {
     console.log("GETList-request recieved");
     const par = pathPharser(req);
-    const data = await adapter.doGetList(par.db, par.collection, {});
+    const data = await adapter.doGetList(par.collection, {});
     res.send(data);
     return next();
 };
@@ -33,10 +33,15 @@ const doGetList = async function (req, res, next) {
 
 const doPost = async function (req, res, next) {
     console.log("POST-request recieved");
-    const par = pathPharser(req);
-    const obj = JSON.parse(req.body);
-    const data = await adapter.doPost(par.db, par.collection, obj);
-    res.send(data);
+    try{
+        const par = pathPharser(req);
+        const obj = JSON.parse(req.body);
+        const data = await adapter.doPost(par.collection, obj);
+        res.send(data);
+    }catch(err){
+        console.log(req.body);
+        res.send({error:err.message});
+    }
     return next();
 };
 
@@ -45,7 +50,7 @@ const doPut = async function (req, res, next) {
     console.log("PUT-request recieved");
     const par = pathPharser(req);
     const obj = JSON.parse(req.body);
-    const data = await adapter.doPut(par.db, par.collection, par.id, obj);
+    const data = await adapter.doPut(par.collection, par.id, obj);
     res.send(data);
     return next();
 };
@@ -54,7 +59,7 @@ const doPut = async function (req, res, next) {
 const doDelete = async function (req, res, next) {
     console.log("DELETE-request recieved");
     const par = pathPharser(req);
-    const data = await adapter.doDelete(par.db, par.collection, par.id);
+    const data = await adapter.doDelete(par.collection, par.id);
     res.send(data);
     return next();
 };
@@ -63,7 +68,7 @@ const doQueryPost = async function (req, res, next) {
     console.log("Query-POST-request recieved");
     const par = pathPharser(req);
     const obj = JSON.parse(req.body);
-    const data = await adapter.doGetList(par.db, par.collection, obj);
+    const data = await adapter.doGetList(par.collection, obj);
     res.send(data);
     return next();
 };

@@ -12,12 +12,12 @@ const server = restify.createServer({
 });
 
 server.get("/", handler.help);
-server.post("/query/:db/:collection", handler.doQueryPost);
-server.post("/:db/:collection", handler.doPost);
-server.get("/:db/:collection/:id", handler.doGet);
-server.get("/:db/:collection", handler.doGetList);
-server.put("/:db/:collection/:id", handler.doPut);
-server.del("/:db/:collection/:id", handler.doDelete);
+server.post("/query/:collection", handler.doQueryPost);
+server.post("/:collection", handler.doPost);
+server.get("/:collection/:id", handler.doGet);
+server.get("/:collection", handler.doGetList);
+server.put("/:collection/:id", handler.doPut);
+server.del("/:collection/:id", handler.doDelete);
 
 
 server.listen(server_port, function () {
