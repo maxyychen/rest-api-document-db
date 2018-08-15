@@ -6,7 +6,16 @@ const database = process.env.MONGODB_DATABASE || "test";
 class MongooseAdapter {
     constructor() {
         this.dbs = {};
-        mongoose.connect(`${url}/${database}`, {useNewUrlParser:true});
+        mongoose.connect(`${url}/${database}`, {
+          useNewUrlParser:true,
+          server: {
+            socketOptions: {
+              socketTimeoutMS: 0,
+              connectTimeoutMS: 0,
+              connectionTimeout: 0
+            }
+          }
+        });
     }
 
     getModel(col_name){
