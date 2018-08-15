@@ -35,12 +35,11 @@ const doPost = async function (req, res, next) {
     console.log("POST-request recieved");
     try{
         const par = pathPharser(req);
-        const obj = JSON.parse(req.body);
+        const obj = req.body;
         const data = await adapter.doPost(par.collection, obj);
         res.send(data);
     }catch(err){
-        console.log(req.body);
-        res.send({error:err.message});
+        res.send({error:err.message, data: obj});
     }
     return next();
 };
@@ -48,10 +47,14 @@ const doPost = async function (req, res, next) {
 
 const doPut = async function (req, res, next) {
     console.log("PUT-request recieved");
-    const par = pathPharser(req);
-    const obj = JSON.parse(req.body);
-    const data = await adapter.doPut(par.collection, par.id, obj);
-    res.send(data);
+    try{
+        const par = pathPharser(req);
+        const obj = req.body;
+        const data = await adapter.doPut(par.collection, par.id, obj);
+        res.send(data);
+    }catch(err){
+        res.send({error:err.message, data: obj});
+    }
     return next();
 };
 
@@ -66,10 +69,14 @@ const doDelete = async function (req, res, next) {
 
 const doQueryPost = async function (req, res, next) {
     console.log("Query-POST-request recieved");
-    const par = pathPharser(req);
-    const obj = JSON.parse(req.body);
-    const data = await adapter.doGetList(par.collection, obj);
-    res.send(data);
+    try{
+        const par = pathPharser(req);
+        const obj = req.body;
+        const data = await adapter.doGetList(par.collection, obj);
+        res.send(data);
+    }catch(err){
+        res.send({error:err.message, data: obj});
+    }
     return next();
 };
 

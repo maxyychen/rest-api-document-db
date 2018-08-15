@@ -1,6 +1,7 @@
 
 const restify = require("restify");
 const handler = require('./handler');
+const bodyParser = require('body-parser');
 
 const server_name = process.env.SERVER_NAME || "rest-api-document-db";
 const server_port = process.env.PORT || 8139;
@@ -10,6 +11,8 @@ const server_port = process.env.PORT || 8139;
 const server = restify.createServer({
   name: server_name
 });
+
+server.use(bodyParser.json());
 
 server.get("/", handler.help);
 server.post("/query/:collection", handler.doQueryPost);
